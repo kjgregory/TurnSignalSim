@@ -1,4 +1,14 @@
 #################
+## MPLAB X IDE
+#################
+
+*.xml
+*.txt
+.cvsignore
+*.bash
+Makefile-genesis.properties
+
+#################
 ## Eclipse
 #################
 
