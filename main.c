@@ -40,11 +40,9 @@ int16_t main(void)
     /* Initialize IO ports and peripherals */
     InitApp();
 
-    /* TODO <INSERT USER APPLICATION CODE HERE> */
-
     while(1)
     {
-
+        //Idle();
     }
 }
 

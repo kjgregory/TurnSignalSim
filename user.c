@@ -38,10 +38,12 @@ void InitApp(void)
 
     __builtin_write_OSCCONL(OSCCON & 0xBF); //unlock registers
 
+    ANSA = 0x0000;  //all port A bits as digital
+    ANSB = 0x8000;  //all port B bits except RB15/AN9 as digital
+
     TRISA = 0xFFFE; //bit 0 as output
     TRISB = 0xFFFF; //all inputs
-    AD1PCFG = 0x1DFF; //Set all ports as digital except AN9/RB15, enable all references
-
+    
     SR &= 0xFFF8;  //set CPU priority to 0
     INTCON1 |= 0X8000; //disable interrupt nesting
 
@@ -55,7 +57,7 @@ void InitApp(void)
 
     AD1CHS = 0x0009; //select AN9/RB15 for conversion
     AD1CON2 = 0x0000; //use Vdd/Vss, no scan, interrupt every conversion, 16-bit word, always MUXA
-    AD1CON1 = 0x8044; //ADC is on, uint format, T3 trigger, autostart after complete
+    AD1CON1 = 0x8024; //ADC is on, uint format, T3 trigger, autostart after complete
     IEC0bits.AD1IE = 1; //enable AD1 interrupt
     IFS0bits.AD1IF = 0; //clear AD1 interrupt flag
     IPC3 |= 0x0070; //set AD1 interrupt priority

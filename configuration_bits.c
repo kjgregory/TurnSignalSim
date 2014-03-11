@@ -5,41 +5,49 @@
 /* Device header file */
 #if defined(__XC16__)
     #include <xc.h>
-// CONFIG4
-    #pragma config DSWDTPS = DSWDTPSF       // DSWDT Postscale Select (1:2,147,483,648 (25.7 days))
-    #pragma config DSWDTOSC = LPRC          // Deep Sleep Watchdog Timer Oscillator Select (DSWDT uses Low Power RC Oscillator (LPRC))
-    #pragma config RTCOSC = SOSC            // RTCC Reference Oscillator  Select (RTCC uses Secondary Oscillator (SOSC))
-    #pragma config DSBOREN = ON             // Deep Sleep BOR Enable bit (BOR enabled in Deep Sleep)
-    #pragma config DSWDTEN = ON             // Deep Sleep Watchdog Timer (DSWDT enabled)
+// FBS
+    #pragma config BWRP = OFF               // Boot Segment Write Protect (Disabled)
+    #pragma config BSS = OFF                // Boot segment Protect (No boot program flash segment)
 
-    // CONFIG3
-    #pragma config WPFP = WPFP63            // Write Protection Flash Page Segment Boundary (Highest Page (same as page 42))
-    #pragma config SOSCSEL = SOSC           // Secondary Oscillator Pin Mode Select (SOSC pins in Default (high drive-strength) Oscillator Mode)
-    #pragma config WUTSEL = LEG             // Voltage Regulator Wake-up Time Select (Default regulator start-up time used)
-    #pragma config WPDIS = WPDIS            // Segment Write Protection Disable (Segmented code protection disabled)
-    #pragma config WPCFG = WPCFGDIS         // Write Protect Configuration Page Select (Last page and Flash Configuration words are unprotected)
-    #pragma config WPEND = WPENDMEM         // Segment Write Protection End Page Select (Write Protect from WPFP to the last page of memory)
+    // FGS
+    #pragma config GWRP = OFF               // General Segment Write Protect (General segment may be written)
+    #pragma config GSS0 = OFF               // General Segment Code Protect (No Protection)
 
-    // CONFIG2
-    #pragma config POSCMOD = NONE           // Primary Oscillator Select (Primary Oscillator disabled)
-    #pragma config I2C1SEL = PRI            // I2C1 Pin Select bit (Use default SCL1/SDA1 pins for I2C1 )
-    #pragma config IOL1WAY = ON             // IOLOCK One-Way Set Enable (Once set, the IOLOCK bit cannot be cleared)
-    #pragma config OSCIOFNC = ON            // OSCO Pin Configuration (OSCO pin functions as port I/O (RA3))
-    #pragma config FCKSM = CSDCMD           // Clock Switching and Fail-Safe Clock Monitor (Sw Disabled, Mon Disabled)
-    #pragma config FNOSC = FRCDIV           // Initial Oscillator Select (Fast RC Oscillator with Postscaler (FRCDIV))
-    #pragma config PLL96MHZ = ON            // 96MHz PLL Startup Select (96 MHz PLL Startup is enabled automatically on start-up)
-    #pragma config PLLDIV = DIV12           // USB 96 MHz PLL Prescaler Select (Oscillator input divided by 12 (48 MHz input))
-    #pragma config IESO = ON                // Internal External Switchover (IESO mode (Two-Speed Start-up) enabled)
+    // FOSCSEL
+    #pragma config FNOSC = FRC              // Oscillator Select (Fast RC Oscillator with Postscaler and PLL Module (FRCDIV+PLL))
+    #pragma config SOSCSRC = DIG            // SOSC Source Type (Analog Mode for use with crystal)
+    #pragma config LPRCSEL = HP             // LPRC Oscillator Power and Accuracy (High Power, High Accuracy Mode)
+    #pragma config IESO = ON                // Internal External Switch Over bit (Internal External Switchover mode enabled (Two-speed Start-up enabled))
 
-    // CONFIG1
-    #pragma config WDTPS = PS32768          // Watchdog Timer Postscaler (1:32,768)
-    #pragma config FWPSA = PR128            // WDT Prescaler (Prescaler ratio of 1:128)
-    #pragma config WINDIS = OFF             // Windowed WDT (Standard Watchdog Timer enabled,(Windowed-mode is disabled))
-    #pragma config FWDTEN = ON              // Watchdog Timer (Watchdog Timer is enabled)
-    #pragma config ICS = PGx1               // Emulator Pin Placement Select bits (Emulator functions are shared with PGEC1/PGED1)
-    #pragma config GWRP = OFF               // General Segment Write Protect (Writes to program memory are allowed)
-    #pragma config GCP = OFF                // General Segment Code Protect (Code protection is disabled)
-    #pragma config JTAGEN = ON              // JTAG Port Enable (JTAG port is enabled)
+    // FOSC
+    #pragma config POSCMOD = NONE           // Primary Oscillator Configuration bits (Primary oscillator disabled)
+    #pragma config OSCIOFNC = OFF           // CLKO Enable Configuration bit (CLKO output disabled)
+    #pragma config POSCFREQ = HS            // Primary Oscillator Frequency Range Configuration bits (Primary oscillator/external clock input frequency greater than 8MHz)
+    #pragma config SOSCSEL = SOSCHP         // SOSC Power Selection Configuration bits (Secondary Oscillator configured for high-power operation)
+    #pragma config FCKSM = CSDCMD           // Clock Switching and Monitor Selection (Both Clock Switching and Fail-safe Clock Monitor are disabled)
+
+    // FWDT
+    #pragma config WDTPS = PS32768          // Watchdog Timer Postscale Select bits (1:32768)
+    #pragma config FWPSA = PR128            // WDT Prescaler bit (WDT prescaler ratio of 1:128)
+    #pragma config FWDTEN = OFF              // Watchdog Timer Enable bits (WDT enabled in hardware)
+    #pragma config WINDIS = OFF             // Windowed Watchdog Timer Disable bit (Standard WDT selected(windowed WDT disabled))
+
+    // FPOR
+    #pragma config BOREN = BOR3             // Brown-out Reset Enable bits (Brown-out Reset enabled in hardware, SBOREN bit disabled)
+    #pragma config LVRCFG = OFF             //  (Low Voltage regulator is not available)
+    #pragma config PWRTEN = ON              // Power-up Timer Enable bit (PWRT enabled)
+    #pragma config I2C1SEL = PRI            // Alternate I2C1 Pin Mapping bit (Use Default SCL1/SDA1 Pins For I2C1)
+    #pragma config BORV = V18               // Brown-out Reset Voltage bits (Brown-out Reset set to lowest voltage (1.8V))
+    #pragma config MCLRE = ON               // MCLR Pin Enable bit (RA5 input pin enabled,MCLR disabled)
+
+    // FICD
+    #pragma config ICS = PGx1               // ICD Pin Placement Select bits (EMUC/EMUD share PGC1/PGD1)
+
+    // FDS
+    #pragma config DSWDTPS = DSWDTPSF       // Deep Sleep Watchdog Timer Postscale Select bits (1:2,147,483,648 (25.7 Days))
+    #pragma config DSWDTOSC = LPRC          // DSWDT Reference Clock Select bit (DSWDT uses Low Power RC Oscillator (LPRC))
+    #pragma config DSBOREN = ON             // Deep Sleep Zero-Power BOR Enable bit (Deep Sleep BOR enabled in Deep Sleep)
+    #pragma config DSWDTEN = ON             // Deep Sleep Watchdog Timer Enable bit (DSWDT enabled)
 
 #elif defined(__C30__)
     #if defined(__PIC24E__)
