@@ -59,5 +59,5 @@ void __attribute__((interrupt,auto_psv)) _ADC1Interrupt(void)
     {
         PORTA = 0x0001 & (~PORTA);
     }
-    PR3 = (ADC1BUF0<<3) + 0x0007; //set new period to value from potentiometer
+    PR3 = (ADC1BUF0*9) + 20; //set new period to value from potentiometer
 }
